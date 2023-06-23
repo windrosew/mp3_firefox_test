@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>mp3-test</title>
+</head>
+<script type="application/ecmascript">
+
+  const updateCurrentTime = (audio, value) => {
+    audio.pause();
+    audio.currentTime = value;
+  }
+
+  window.onload = () => {
+    const mp3 = document.getElementById('mp3Audio');
+    const mp3Shortened = document.getElementById('mp3AudioShortened');
+    const ogg = document.getElementById('oggAudio');
+
+    const mp3CurrentPosition = document.getElementById('mp3CurrentPosition');
+    const mp3ShortenedCurrentPosition = document.getElementById('mp3ShortenedCurrentPosition')
+    const oggCurrentPosition = document.getElementById('oggCurrentPosition');
+
+    const startPosition = document.getElementById('startPosition');
+    const initialStartPosition = 7;
+
+    startPosition.value = initialStartPosition;
+    updateCurrentTime(mp3, initialStartPosition);
+    updateCurrentTime(ogg, initialStartPosition);
+    updateCurrentTime(mp3Shortened, initialStartPosition);
+
+
+    setInterval(() => {
+      mp3CurrentPosition.value = mp3.currentTime;
+      mp3ShortenedCurrentPosition.value = mp3Shortened.currentTime;
+      oggCurrentPosition.value = ogg.currentTime;
+    }, 10);
+
+    startPosition.addEventListener('input', (event) => {
+      updateCurrentTime(mp3, event.target.value);
+      updateCurrentTime(mp3Shortened, event.target.value);
+      updateCurrentTime(ogg, event.target.value);
+    });
+  }
+</script>
+<body style="display: flex; flex-direction: column">
+<h1>mp3-test</h1>
+<label>
+  Start position audio [s]:
+  <input id="startPosition" type="number"/>
+</label>
+<div>
+    <label for="mp3CurrentPosition">
+        Current position MP3:
+    </label>
+    <input id="mp3CurrentPosition" type="number" disabled/>
+</div>
+<div>
+    <label for="mp3ShortenedCurrentPosition">
+        Current position shortened MP3:
+    </label>
+    <input id="mp3ShortenedCurrentPosition" type="number" disabled/>
+</div>
+<div>
+    <label for="oggCurrentPosition">
+        Current position ogg:
+    </label>
+    <input id="oggCurrentPosition" type="number" disabled/>
+</div>
+
+<label for="mp3Audio">
+  original MP3
+</label>
+<audio id="mp3Audio" controls src="test_long.mp3" preload="auto"></audio>
+<label for="mp3AudioShortened">shortened MP3</label>
+<audio id="mp3AudioShortened" controls src="test.mp3" preload="auto"></audio>
+<label for="oggAudio">
+  Ogg
+</label>
+<audio id="oggAudio" controls src="test_long.ogg"></audio>
+</body>
+
+</html>
