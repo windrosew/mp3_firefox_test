@@ -15,30 +15,34 @@
     const mp3 = document.getElementById('mp3Audio');
     const mp3Shortened = document.getElementById('mp3AudioShortened');
     const ogg = document.getElementById('oggAudio');
+    const wav = document.getElementById('wavAudio');
 
     const mp3CurrentPosition = document.getElementById('mp3CurrentPosition');
     const mp3ShortenedCurrentPosition = document.getElementById('mp3ShortenedCurrentPosition')
     const oggCurrentPosition = document.getElementById('oggCurrentPosition');
+    const wavCurrentPosition = document.getElementById('wavCurrentPosition');
 
     const startPosition = document.getElementById('startPosition');
     const initialStartPosition = 7;
 
     startPosition.value = initialStartPosition;
     updateCurrentTime(mp3, initialStartPosition);
-    updateCurrentTime(ogg, initialStartPosition);
     updateCurrentTime(mp3Shortened, initialStartPosition);
-
+    updateCurrentTime(ogg, initialStartPosition);
+    updateCurrentTime(wav, initialStartPosition);
 
     setInterval(() => {
       mp3CurrentPosition.value = mp3.currentTime;
       mp3ShortenedCurrentPosition.value = mp3Shortened.currentTime;
       oggCurrentPosition.value = ogg.currentTime;
+      wavCurrentPosition.value = ogg.currentTime;
     }, 10);
 
     startPosition.addEventListener('input', (event) => {
       updateCurrentTime(mp3, event.target.value);
       updateCurrentTime(mp3Shortened, event.target.value);
       updateCurrentTime(ogg, event.target.value);
+      updateCurrentTime(wav, event.target.value);
     });
   }
 </script>
@@ -66,6 +70,12 @@
     </label>
     <input id="oggCurrentPosition" type="number" disabled/>
 </div>
+<div>
+    <label for="wavCurrentPosition">
+        Current position wav:
+    </label>
+    <input id="wavCurrentPosition" type="number" disabled/>
+</div>
 
 <label for="mp3Audio">
   original MP3
@@ -77,6 +87,10 @@
   Ogg
 </label>
 <audio id="oggAudio" controls src="test_long.ogg"></audio>
+<label for="wavAudio">
+Wav
+</label>
+<audio id="wavAudio" controls src="test_long.wav"></audio>
 </body>
 
 </html>
